@@ -12,7 +12,14 @@
 Function.prototype.uncurrying = function () {
   var self = this
   return function () {
-    return Function.prototype.call.apply(self, arguments)
+    // callFunc的this指向self                   callFunc.apply(self, arguments)
+    // Object.prototyp.toString.call(null)     this指向toString
+    // 同理 相当于 self.call(arguments)
+    // return Function.prototype.call.apply(self, arguments)
+
+    // 最最简洁写法
+    // 结构后参数相当于 类数组[1,2,3] 和 4 self表示Array.prototype.push
+    return self.call(...arguments)
   }
 }
 
