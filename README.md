@@ -80,9 +80,10 @@
   // 4.返回新对象 如果构造函数返回的是基本类型，则将返回新对象
   function createObject(fn, args) {
     var obj = new Object()
-    obj.__proto__ = fn.prototype
+    Object.setPrototypeOf(obj, fn.prototype)
     var res = fn.apply(obj, args)
 
-    return typeof res === 'object' ? res : obj
+    // 注意null也是Object
+    return typeof res === 'object' ? res||obj : obj
   }
 ```
